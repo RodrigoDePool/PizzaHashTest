@@ -6,7 +6,7 @@ int addSlice(Solution *s, Slice *sl){
     if(s->nslices >= MAX_SLICES)
         return 0;
     for(i=0;i<4;i++){
-        (s->slices[s->nslices])->sol[i]=sl->sol[i]; 
+        (s->slices[s->nslices]).sol[i]=sl->sol[i]; 
     }
     return 1;
 }
@@ -23,10 +23,15 @@ int copySlice(Slice *sl1, Slice *sl2){
 
 int printSolution(Solution s, char *path){
     FILE *f;
+    int i;
     f=fopen(path, "w");
     if(f==NULL)
         return 0;
     fprintf(f,"%d\n", s.nslices);
-
-
+    for(i=0;i<s.nslices;i++){
+        fprintf(f,"%d %d %d %d\n",s.slices[i].sol[0],s.slices[i].sol[1],
+                s.slices[i].sol[2],s.slices[i].sol[3]);
+    }
+   fclose(f);
+   return 1;
 }
