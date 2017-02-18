@@ -18,13 +18,11 @@ struct{
 } Slice;
 
 
-Solution *newSolution();
 
 int addSlice(Solution *s,Slice *sl);
 int printSolution(Solution *s, char *path);
 
 
-Slice *newSlice(int ri, int ci, int rf, int cf);
 int getIRow(Slice *sl);
 int getFRow(Slice *sl);
 int getICol(Slice *sl);
@@ -35,7 +33,11 @@ int newFRow(Slice *sl, int rf);
 int newICol(Slice *sl, int ci);
 int newIRow(Slice *sl, int ri);
 
-Slice *copySlice(Slice *sl);
+
+/*
+    Copies 1 slice to another slice
+*/
+int copySlice(Slice *sl1, Slice *sl2);
 
 
 void freeSlice(Slice *sl);
