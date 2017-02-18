@@ -4,24 +4,23 @@
 
 #define MAX_SLICES 3000
 
-typedef struct _Solution Solution;
-typedef struct _Slice Slice;
-
-typedef struct{
-    int nslices;
-    Slice slices[MAX_SLICES];  
-} Solution;
-
-
-struct{
+typedef struct {
     int sol[4];
 } Slice;
 
 
+typedef struct {
+    int nslices;
+    Slice slices[MAX_SLICES];
+} Solution;
+
+
+
+
 /*
-    0 if error 
+    0 if error
     1 if added
-*/
+ */
 int addSlice(Solution *s,Slice *sl);
 int printSolution(Solution s, char *path);
 
@@ -30,7 +29,7 @@ int printSolution(Solution s, char *path);
 
 /*
     Copies slice1 to slice2
-*/
+ */
 int copySlice(Slice *sl1, Slice *sl2);
 
 

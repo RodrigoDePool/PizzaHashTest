@@ -61,20 +61,17 @@ Pizza* read_file(char* path){
 }
 
 
-int cuthalf(Slice sl, int c){
-  int half;
+int cutHalf(Slice sl, int* c){
+    int half = -1;
 
-    if(c < 0 || c > 1)
-      return NULL;
-
-    if(c == 0){ //horizontal (return row)
-      half = (sl[2]+sl[0])/2;
-      return half;
-    }
-    if(c == 1){ //vertical (return col)
-      half = (sl[3]+sl[1])/2;
-      return half;
+    if((sl.sol[2]-sl.sol[0]) > (sl.sol[3]-sl.sol[1])) { /*horizontal (return row)*/
+        half = (sl.sol[2]+sl.sol[0])/2;
+        *c = 0;
+        return half;
+    } else { /*vertical (return col)*/
+        half = (sl.sol[3]+sl.sol[1])/2;
+        *c = 1;
+        return half;
     }
     return half;
 }
-

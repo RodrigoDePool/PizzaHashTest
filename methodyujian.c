@@ -12,7 +12,7 @@ int rec(Pizza pizza, Slice* s, Solution* s){
     int new;
     int direction;
 
-    new = cutHalf(s, &direction);
+    new = cutHalf(*s, &direction);
     if(direccion == 0) {
         copy(&x1, s);
         x.sol[2] = newrow;
