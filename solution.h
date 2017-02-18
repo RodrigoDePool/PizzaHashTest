@@ -23,7 +23,7 @@ struct{
     1 if added
 */
 int addSlice(Solution *s,Slice *sl);
-int printSolution(Solution *s, char *path);
+int printSolution(Solution s, char *path);
 
 
 

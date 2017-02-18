@@ -20,3 +20,13 @@ int copySlice(Slice *sl1, Slice *sl2){
     }
     return 1;
 }
+
+int printSolution(Solution s, char *path){
+    FILE *f;
+    f=fopen(path, "w");
+    if(f==NULL)
+        return 0;
+    fprintf(f,"%d\n", s.nslices);
+
+
+}
