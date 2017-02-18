@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
+#include "solution.h"
 #include "read_file.h"
 
 void pizza_free(Pizza* pizza){
@@ -58,3 +59,22 @@ Pizza* read_file(char* path){
 
 
 }
+
+
+int cuthalf(Slice sl, int c){
+  int half;
+
+    if(c < 0 || c > 1)
+      return NULL;
+
+    if(c == 0){ //horizontal (return row)
+      half = (sl[2]+sl[0])/2;
+      return half;
+    }
+    if(c == 1){ //vertical (return col)
+      half = (sl[3]+sl[1])/2;
+      return half;
+    }
+    return half;
+}
+
