@@ -35,6 +35,7 @@ int newFRow(Slice *sl, int rf);
 int newICol(Slice *sl, int ci);
 int newIRow(Slice *sl, int ri);
 
+Slice *copySlice(Slice *sl);
 
 
 void freeSlice(Slice *sl);
