@@ -6,13 +6,13 @@
     1 for TRUE
     0 for FALSE
 */
-int satL(Pizza *p, Slice *sl);
+int satL(Pizza p, Slice sl);
 
 
 /*
     1 for TRUE
     0 for FALSE
 */
-int satSize(Pizza *p, Slice *sl);
+int satSize(Pizza p, Slice sl);
 
 #endif
