@@ -10,4 +10,4 @@ typedef struct {
     char** cells;
 } Pizza;
 
-int read_file(char* path);
+Pizza* read_file(char* path);
