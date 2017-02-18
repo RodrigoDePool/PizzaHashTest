@@ -18,7 +18,10 @@ struct{
 } Slice;
 
 
-
+/*
+    0 if error 
+    1 if added
+*/
 int addSlice(Solution *s,Slice *sl);
 int printSolution(Solution *s, char *path);
 
@@ -26,13 +29,9 @@ int printSolution(Solution *s, char *path);
 
 
 /*
-    Copies 1 slice to another slice
+    Copies slice1 to slice2
 */
 int copySlice(Slice *sl1, Slice *sl2);
-
-
-void freeSlice(Slice *sl);
-void freeSolution(Solution *s);
 
 
 #endif
