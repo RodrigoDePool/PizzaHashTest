@@ -4,10 +4,10 @@ HEAD_FILES = $(patsubst %.c, %.h, $(SRC_FILES))
 CC = gcc
 CCFLAGS = -ansi -pedantic -Wall
 
-all: read_file.o
+all: $(OBJ_FILES)
 
-read_file.o: read_file.c read_file.h
-	$(CC) $(CCFLAGS) -c read_file.c
+%.o: %.c $(HEAD_FILES)
+	$(CC) $(CCFLAGS) -c $*.c
 
 
 clean:
