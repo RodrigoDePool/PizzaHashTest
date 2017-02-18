@@ -23,15 +23,6 @@ int addSlice(Solution *s,Slice *sl);
 int printSolution(Solution *s, char *path);
 
 
-int getIRow(Slice *sl);
-int getFRow(Slice *sl);
-int getICol(Slice *sl);
-int getFCol(Slice *sl);
-
-int newFCol(Slice *sl, int cf);
-int newFRow(Slice *sl, int rf);
-int newICol(Slice *sl, int ci);
-int newIRow(Slice *sl, int ri);
 
 
 /*
