@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
+#include "read_file.h"
 
 void pizza_free(Pizza* pizza){
     int i;
@@ -29,7 +30,7 @@ Pizza* read_file(char* path){
         return NULL;
     }
 
-    fscanf(f, "%d %d %d %d\n", pizza->R, pizza->C, pizza->L, pizza->H);
+    fscanf(f, "%d %d %d %d\n", &pizza->R, &pizza->C, &pizza->L, &pizza->H);
     pizza->cells = (char**)malloc(pizza->R*sizeof(char*));
     if(!pizza->cells) {
         printf("Error allocating memory for the array of pizza.\n");
@@ -49,8 +50,11 @@ Pizza* read_file(char* path){
         }
     }
 
-    fgets(buff, 1024, f);
-    buff[strlen(buff)-1] = 0;
+    for(i = 0; i < pizza->R; i++) {
+        fgets(pizza->cells[i], pizza->C + 1, f);
+        pizza->cells[i][strlen(pizza->cells[i])-1] = 0;
+    }
+    return pizza;
 
 
 }
