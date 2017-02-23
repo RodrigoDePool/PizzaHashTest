@@ -63,6 +63,10 @@ Endpoint* new_endopint(int id, int lat_base, int* lat, int* cache);
 
 Request* new_request(int server_id, int endpoint_id, int number);
 
-int server_add_video(Database* db, int server_id, Video* video);
+int server_add_video(Database* db, int server_id, int id_video);
+
+void order_db(Database* db);
+
+void answer_request(Database* db, Request* request);
 
 #endif

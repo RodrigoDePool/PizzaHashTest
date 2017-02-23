@@ -13,13 +13,13 @@ Cache* seek_cache(Database db, int id){
 
 	for(i=0; i<MAX_CACHE; i++){
 		if(db->caches[i]->id == id)
-			return db->caches[i];
+			return &db->caches[i];
 	}
 
 	return NULL;
 }
 
-Cache* seek_endpoint(Database db, int id){
+Endpoint* seek_endpoint(Database db, int id){
 	
 	if(id<0)
 		return NULL;
@@ -28,13 +28,13 @@ Cache* seek_endpoint(Database db, int id){
 
 	for(i=0; i<MAX_CACHE; i++){
 		if(db->endpoints[i]->id == id)
-			return db->caches[i];
+			return &db->endpoints[i];
 	}
 
 	return NULL;
 }
 
-Cache* seek_request(Database db, int id){
+Request* seek_request(Database db, int id){
 	
 	if(id<0)
 		return NULL;
@@ -43,13 +43,13 @@ Cache* seek_request(Database db, int id){
 
 	for(i=0; i<MAX_CACHE; i++){
 		if(db->requests[i]->id == id)
-			return db->caches[i];
+			return &db->requests[i];
 	}
 
 	return NULL;
 }
 
-Cache* seek_video(Database db, int id){
+Video* seek_video(Database db, int id){
 	
 	if(id<0)
 		return NULL;
@@ -58,7 +58,7 @@ Cache* seek_video(Database db, int id){
 
 	for(i=0; i<MAX_CACHE; i++){
 		if(db->videos[i]->id == id)
-			return db->caches[i];
+			return &db->videos[i];
 	}
 
 	return NULL;
@@ -105,7 +105,7 @@ Endpoint* new_endopint(int id, int lat_base, Conexion* conex){
 
 Request* new_request(int server_id, int endpoint_id, int number); */
 
-Cache* cache_add_video(Database* db, int server_id, Video* video){
+Cache* cache_add_video(Database* db, int server_id, int id_video){
 
 	if(!db || server_id < 0 || !video)
 		return NULL;
@@ -114,11 +114,45 @@ Cache* cache_add_video(Database* db, int server_id, Video* video){
 
 	cache = seek_cache(db, server_id);
 	
-	cache->videos[cache->num_video] = video;
+	cache->videos[cache->num_video] = id_video;
 
 	cache->num_videos++;
 
+	cache->used += video->size;
+
 	return cache;
+}
+
+void order_db(Database* db){
+	if(!db)
+		return;
+
+	int i = 0;
+
+	for(i=0; i<MAX_REQUESTS; i++){
+		answer_request(db, &db->requests[i]);
+	}
+
+}
+
+void answer_request(Database* db, Request* request){
+	
+	Endpoint* endpoint;
+	Video* video;
+	Cache* cache;
+	int size, j;
+
+	endpoint = seek_endpoint(db, request->endpoint_id);
+	video = seek_video(db, request->video_id);
+	size = video->size;
+
+	for(j=0; j<endpoint->num_cache; j++){
+		cache = seek_cache(db, endpoint->cache[j].id);
+		if(size<=(db->X - cache->free_mem)){
+			cache_add_video(db, endpoint->cache[j].id, video->id);
+			break;
+		}
+	}
 }
 
 
