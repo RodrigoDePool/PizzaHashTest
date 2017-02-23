@@ -24,10 +24,10 @@ Database* read_file(char* path){
 
     fscanf(f, "%d %d %d %d %d\n", &db->V, &db->E, &db->R, &db->C, &db->X);
     for(i = 0; i < db->V-1; i++) {
-        fscanf(f, "%d ", &db->videos->size);
+        fscanf(f, "%d ", &db->videos[i].size);
         db->videos[i].id = i;
     }
-    fscanf(f, "%d\n", &db->videos->size);
+    fscanf(f, "%d\n", &db->videos[i].size);
     db->videos[i].id = i;
 
     for (i = 0; i < db->E; i++) {

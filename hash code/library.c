@@ -99,11 +99,15 @@ Cache* cache_add_video(Database* db, int server_id, int id_video){
 		return NULL;
 
 	Cache* cache = NULL;
+
     video=seek_video(db,id_video);
 
 	cache = seek_cache(db, server_id);
 	
 	cache->videos[cache->num_videos] = id_video;
+
+    if(cache->num_videos==0)
+        db->num_cache++;
 
 	cache->num_videos++;
 

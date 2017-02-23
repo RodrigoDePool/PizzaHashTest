@@ -65,7 +65,7 @@ Request* new_request(int server_id, int endpoint_id, int number);
 
 int server_add_video(Database* db, int server_id, int id_video);
 
-void order_db(Database* db);
+void solve(Database* db);
 
 void answer_request(Database* db, Request* request);
 
