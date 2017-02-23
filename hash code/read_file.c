@@ -51,3 +51,23 @@ Database* read_file(char* path){
 
 
 }
+
+
+void write_file(Database* db){
+    int i, j;
+
+    fopen("me_at_the_zoo.out", "w");
+
+    fprintf("%d\n", db->num_cache);
+
+    for (i = 0; i < db->num_cache; i++) {
+        fprintf("%d ", db->caches[i].id);
+        for(j = 0; j < db->caches[i].num_videos-1; j++) {
+            fprintf("%d ", db->caches[i].videos[j].id);
+        }
+        fprintf("%d\n", db->caches[i].videos[j].id);
+    }
+
+
+    fclose(f);
+}

@@ -52,6 +52,7 @@ typedef struct {
     Endpoint endpoints[1000];
     Request requests[1000000];
     Cache caches[1000];
+    int num_cache;
     Video videos[10000];
 } Database;
 
