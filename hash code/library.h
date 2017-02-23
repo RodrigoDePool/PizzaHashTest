@@ -39,12 +39,11 @@ typedef struct {
 typedef struct {
     int id;
     int num_videos;
-    int max_tam;
     Video[10000] videos;
 }Cache;
 
 typedef struct {
-    int server_id;
+    int video_id;
     int endpoint_id;
     int number;
 }Request;

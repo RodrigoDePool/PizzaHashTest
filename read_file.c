@@ -43,10 +43,18 @@ Database* read_file(char* path){
         db->endpoints[i].id = i;
         fscanf("%d %d\n", &db->endpoints[i].lat_base, &db->endpoints[i].num_cache);
         for(j = 0; j < db->endpoints[i].num_cache; j++) {
-
+            fscanf("%d %d\n", &db->endpoints[i].cache[j].id, &db->endpoints[i].cache[j].latency);
         }
     }
 
+
+    for (i = 0; i < db->R; i++) {
+        fscanf("%d %d %d\n", &db->requests[i].video_id, &db->requests[i].endpoint_id, &db->requests[i].number);
+    }
+
+    for (i = 0; i < db->C; i++) {
+        db->caches[i].id = i;
+    }
 
     return db;
 
