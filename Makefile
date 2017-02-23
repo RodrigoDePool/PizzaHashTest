@@ -1,4 +1,4 @@
-SRC_FILES = read_file.c
+SRC_FILES = read_file.c count.c solution.c
 OBJ_FILES = $(patsubst %.c, %.o, $(SRC_FILES))
 HEAD_FILES = $(patsubst %.c, %.h, $(SRC_FILES))
 CC = gcc
