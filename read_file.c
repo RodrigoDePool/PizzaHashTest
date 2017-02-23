@@ -5,7 +5,7 @@
 #include "solution.h"
 #include "read_file.h"
 
-void pizza_free(Pizza* pizza){
+void database_free(Pizza* pizza){
     int i;
     for (i = 0; i < pizza->R; i++) {
         free(pizza->cells[i]);
@@ -15,9 +15,9 @@ void pizza_free(Pizza* pizza){
     pizza = NULL;
 }
 
-Pizza* read_file(char* path){
+Database* read_file(char* path){
     FILE *f;
-    Pizza* pizza;
+    Database* db;
     int i, j;
 
     f = fopen(path, "r");
@@ -25,37 +25,26 @@ Pizza* read_file(char* path){
         printf("Error opening the file %s.\n", path);
         return NULL;
     }
-    pizza = (Pizza*)malloc(sizeof(Pizza));
+    db = (Database*)malloc(sizeof(Database));
     if(!pizza) {
-        printf("Error allocating memory for the pizza.\n");
+        printf("Error allocating memory for the database.\n");
         return NULL;
     }
 
-    fscanf(f, "%d %d %d %d\n", &pizza->R, &pizza->C, &pizza->L, &pizza->H);
-    pizza->cells = (char**)malloc(pizza->R*sizeof(char*));
-    if(!pizza->cells) {
-        printf("Error allocating memory for the array of pizza.\n");
-        free(pizza);
-        return NULL;
+    fscanf(f, "%d %d %d %d %d\n", &db->V, &db->E, &db->R, &db->C, &db->X);
+    for(i = 0; i < db->V-1; i++) {
+        fscanf("%d ", &db->videos->size);
+        db->videos->id = i;
     }
-    for(i = 0; i < pizza->R; i++) {
-        pizza->cells[i] = (char*)malloc((pizza->C+1)*sizeof(char));
-        if(!pizza->cells[i]) {
-            printf("Error allocating memory for individual cells.\n");
-            for(j = 0; j < i; j++) {
-                free(pizza->cells[j]);
-            }
-            free(pizza->cells);
-            free(pizza);
-            return NULL;
-        }
+    fscanf("%d\n", &db->videos->size);
+    db->videos->id = i;
+
+    for (i = 0; i < db->E; i++) {
+
     }
 
-    for(i = 0; i < pizza->R; i++) {
-        fgets(pizza->cells[i], pizza->C + 1, f);
-        pizza->cells[i][strlen(pizza->cells[i])-1] = 0;
-    }
-    return pizza;
+
+    return db;
 
 
 }
