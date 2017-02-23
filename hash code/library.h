@@ -48,7 +48,3 @@ typedef struct {
     int endpoint_id;
     int number;
 }Request;
-
-typedef struct {
-    Request request[MAX_REQUEST];
-}Reqs;
