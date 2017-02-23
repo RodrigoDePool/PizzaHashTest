@@ -129,7 +129,7 @@ void order_db(Database* db){
 
 	int i = 0;
 
-	for(i=0; i<MAX_REQUESTS; i++){
+	for(i=db->R-1; i>=0; --i){
 		answer_request(db, &db->requests[i]);
 	}
 
