@@ -33,7 +33,8 @@ typedef struct {
 typedef struct {
     int id;
     int num_videos;
-    Video videos[10000];
+    int free_mem;
+    int videos[10000];
 }Cache;
 
 typedef struct {
@@ -64,5 +65,4 @@ Request* new_request(int server_id, int endpoint_id, int number);
 
 int server_add_video(Database* db, int server_id, Video* video);
 
-
-
+#endif
