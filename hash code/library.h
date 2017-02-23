@@ -1,3 +1,6 @@
+#ifndef LIBRARY_H
+#define LIBRARY_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,16 +9,9 @@
 #define MAX_REQUESTS 1000000
 
 typedef struct {
-    int V;
-    int E;
-    int R;
-    int C;
-    int X;
-    Endpoint[1000] endpoints;
-    Request[1000000] requests;
-    Cache[1000] caches;
-    Video[10000] videos;
-} Database;
+    int id;
+    int latency;
+}Conexion;
 
 typedef struct {
     int size;
@@ -31,15 +27,12 @@ typedef struct {
     int num_cache;
 }Endpoint;
 
-typedef struct {
-    int id;
-    int latency;
-}Conexion;
+
 
 typedef struct {
     int id;
     int num_videos;
-    Video[10000] videos;
+    Video videos[10000];
 }Cache;
 
 typedef struct {
@@ -47,3 +40,18 @@ typedef struct {
     int endpoint_id;
     int number;
 }Request;
+
+typedef struct {
+    int V;
+    int E;
+    int R;
+    int C;
+    int X;
+    Endpoint endpoints[1000];
+    Request requests[1000000];
+    Cache caches[1000];
+    Video videos[10000];
+} Database;
+
+
+#endif
