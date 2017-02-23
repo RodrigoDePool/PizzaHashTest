@@ -105,7 +105,7 @@ Endpoint* new_endopint(int id, int lat_base, Conexion* conex){
 
 Request* new_request(int server_id, int endpoint_id, int number); */
 
-Cache* cache_add_video(Database* db, int server_id, Video* video){
+Cache* cache_add_video(Database* db, int server_id, int id_video){
 
 	if(!db || server_id < 0 || !video)
 		return NULL;
@@ -114,7 +114,7 @@ Cache* cache_add_video(Database* db, int server_id, Video* video){
 
 	cache = seek_cache(db, server_id);
 	
-	cache->videos[cache->num_video] = video;
+	cache->videos[cache->num_video] = id_video;
 
 	cache->num_videos++;
 
@@ -148,8 +148,8 @@ void answer_request(Database* db, Request* request){
 
 	for(j=0; j<endpoint->num_cache; j++){
 		cache = seek_cache(db, endpoint->cache[j].id);
-		if(size<=(db->X - cache->used)){
-			cache_add_video(db, endpoint->cache[j].id, video);
+		if(size<=(db->X - cache->free_mem)){
+			cache_add_video(db, endpoint->cache[j].id, video->id);
 			break;
 		}
 	}

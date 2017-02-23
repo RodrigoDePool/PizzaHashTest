@@ -6,3 +6,4 @@
 
 
 Database* read_file(char* path);
+void write_file(Database* db);
