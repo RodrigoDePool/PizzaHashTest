@@ -33,6 +33,7 @@ typedef struct {
 typedef struct {
     int id;
     int num_videos;
+	int used;
     Video videos[10000];
 }Cache;
 
