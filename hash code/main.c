@@ -71,9 +71,9 @@ void algorithm1(Database* db){
 int main(int argc, char const *argv[]) {
     Database* db;
     db = read_file((char*)argv[1]);
-    printf("%d\n", db->V);
     order_db(db);
-    printf("%d\n", db->requests[db->R-1].number);
+    solve(db);
+    write_file(db);
     free(db);
     return 0;
 }
