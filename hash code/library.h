@@ -13,6 +13,7 @@ typedef struct {
     int X;
     Endpoint[1000] endpoints;
     Request[1000000] requests;
+    Cache[1000] caches;
     Video[10000] videos;
 } Database;
 
@@ -26,15 +27,21 @@ typedef struct {
     int id;
     int lat_base;
     int lat[MAX_VIDS];
-    Server cache[1000];
+    Conexion cache[1000];
     int num_cache;
 }Endpoint;
 
 typedef struct {
     int id;
+    int latency;
+}Conexion;
+
+typedef struct {
+    int id;
     int num_videos;
-    Video videos[MAX_VIDS];
-}Server;
+    int max_tam;
+    Video[10000] videos;
+}Cache;
 
 typedef struct {
     int server_id;
