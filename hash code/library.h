@@ -6,32 +6,49 @@
 #define MAX_CACHE 1000
 #define MAX_REQUESTS 1000000
 
-typedef struct{
-	int size;
-	int id;
-	/*servers where it is put?*/
+typedef struct {
+    int V;
+    int E;
+    int R;
+    int C;
+    int X;
+    Endpoint[1000] endpoints;
+    Request[1000000] requests;
+    Cache[1000] caches;
+    Video[10000] videos;
+} Database;
+
+typedef struct {
+    int size;
+    int id;
+    /*servers where it is put?*/
 }Video;
 
-typedef struct{
-	int id;
-	int lat_base;
-	int lat[MAX_VIDS];
-	int cache_id[MAX_CACHE];
-	int num_cache;
+
+typedef struct {
+    int id;
+    int lat_base;
+    Conexion cache[1000];
+    int num_cache;
 }Endpoint;
 
-typedef struct{
-	int id;
-	int num_videos;
-	Video videos[MAX_VIDS];
-}Server;
+typedef struct {
+    int id;
+    int latency;
+}Conexion;
 
-typedef struct{
-	int server_id;
-	int endpoint_id;
-	int number;
+typedef struct {
+    int id;
+    int num_videos;
+    int max_tam;
+    Video[10000] videos;
+}Cache;
+
+typedef struct {
+    int server_id;
+    int endpoint_id;
+    int number;
 }Request;
-
 
 Video* new_video(int id, int size);
 
@@ -42,4 +59,5 @@ Server* new_server(int id);
 Request* new_request(int server_id, int endpoint_id, int number);
 
 int server_add_video(int server_id, Video* video);
+
 

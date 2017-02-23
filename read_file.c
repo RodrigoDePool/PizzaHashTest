@@ -34,13 +34,17 @@ Database* read_file(char* path){
     fscanf(f, "%d %d %d %d %d\n", &db->V, &db->E, &db->R, &db->C, &db->X);
     for(i = 0; i < db->V-1; i++) {
         fscanf("%d ", &db->videos->size);
-        db->videos->id = i;
+        db->videos[i].id = i;
     }
     fscanf("%d\n", &db->videos->size);
-    db->videos->id = i;
+    db->videos[i].id = i;
 
     for (i = 0; i < db->E; i++) {
+        db->endpoints[i].id = i;
+        fscanf("%d %d\n", &db->endpoints[i].lat_base, &db->endpoints[i].num_cache);
+        for(j = 0; j < db->endpoints[i].num_cache; j++) {
 
+        }
     }
 
 
