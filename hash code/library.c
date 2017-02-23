@@ -142,12 +142,12 @@ void answer_request(Database* db, Request* request){
 	Cache* cache;
 	int size, j;
 
-	endpoint = seek_endpoint(db, request->endpoint_id);
-	video = seek_video(db, request->video_id);
+	endpoint = db->entpoints[request->entpoint_id];
+	video = db->videos[request->video_id];
 	size = video->size;
 
 	for(j=0; j<endpoint->num_cache; j++){
-		cache = seek_cache(db, endpoint->cache[j].id);
+		cache = db->caches[endpoint->cache[j].id];
 		if(size<=(db->X - cache->free_mem)){
 			cache_add_video(db, endpoint->cache[j].id, video->id);
 			break;
