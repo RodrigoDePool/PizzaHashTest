@@ -7,6 +7,25 @@
 
 
 
+void order_db(Database* db){
+    int i, j;
+    Request request;
+    for(i = 0; i < db->R; i++) {
+        for(j = i; (j > 0)&&(db->requests[j].number < db->requests[j-1].number); j--) {
+            request.video_id = db->requests[j].video_id;
+            request.endpoint_id = db->requests[j].endpoint_id;
+            request.number = db->requests[j].number;
+            db->requests[j].video_id = db->requests[j-1].video_id;
+            db->requests[j].endpoint_id = db->requests[j-1].endpoint_id;
+            db->requests[j].number = db->requests[j-1].number;
+
+            db->requests[j-1].video_id = request.video_id;
+            db->requests[j-1].endpoint_id = request.endpoint_id;
+            db->requests[j-1].number = request.number;
+        }
+    }
+}
+
 void algorithm1(Database* db){
     int i, j, k, flag;
     int eid;
@@ -38,6 +57,9 @@ void algorithm1(Database* db){
                     break;
                 }
             }
+            if(flag == 0) {
+                break;
+            }
         }
     }
     write_file(db);
@@ -50,7 +72,7 @@ int main(int argc, char const *argv[]) {
     Database* db;
     db = read_file((char*)argv[1]);
     printf("%d\n", db->V);
-    algorithm1(db);
+    order_db(db);
     printf("%d\n", db->requests[db->R-1].number);
     free(db);
     return 0;
