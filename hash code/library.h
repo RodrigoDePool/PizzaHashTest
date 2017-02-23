@@ -42,7 +42,7 @@ typedef struct {
     int number;
 }Request;
 
-<< << <<< HEAD
+
 typedef struct {
     int V;
     int E;
