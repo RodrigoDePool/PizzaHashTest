@@ -44,5 +44,79 @@ Endpoint* new_endopint(int id, int lat_base, Conexion* conex){
 
 Request* new_request(int server_id, int endpoint_id, int number);
 
-int server_add_video(int server_id, Video* video);
+Cache* cache_add_video(Database* db, int server_id, Video* video){
+
+	if(!db || server_id < 0 || !video)
+		return NULL;
+
+	Cache* cache = NULL;
+
+	cache = seek_cache(db, server_id);
+	
+	cache->videos[cache->num_video] = video;
+
+	cache->num_videos++;
+
+	return cache;
+}
+
+Cache* seek_cache(Database db, int id){
+	
+	if(id<0)
+		return NULL;
+
+	int i;
+
+	for(i=0; i<MAX_CACHE; i++){
+		if(db->caches[i]->id == id)
+			return db->caches[i];
+	}
+
+	return NULL;
+}
+
+Cache* seek_endpoint(Database db, int id){
+	
+	if(id<0)
+		return NULL;
+
+	int i;
+
+	for(i=0; i<MAX_CACHE; i++){
+		if(db->endpoints[i]->id == id)
+			return db->caches[i];
+	}
+
+	return NULL;
+}
+
+Cache* seek_request(Database db, int id){
+	
+	if(id<0)
+		return NULL;
+
+	int i;
+
+	for(i=0; i<MAX_CACHE; i++){
+		if(db->requests[i]->id == id)
+			return db->caches[i];
+	}
+
+	return NULL;
+}
+
+Cache* seek_video(Database db, int id){
+	
+	if(id<0)
+		return NULL;
+
+	int i;
+
+	for(i=0; i<MAX_CACHE; i++){
+		if(db->videos[i]->id == id)
+			return db->caches[i];
+	}
+
+	return NULL;
+}
 
