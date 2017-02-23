@@ -52,6 +52,22 @@ Video* seek_video(Database *db, int id){
 	return NULL;
 }
 
+int seek_video_cache(Cache *cache, int id){
+	
+	if(id<0)
+		return 0;
+
+	int i;
+
+	for(i=0; i<cache->num_videos; i++){
+		if(cache->videos[i] == id)
+			return 1;
+	}
+
+	return 0;
+}
+
+
 /*Video* new_video(int id, int size){
 	if(id < 0 || size < 0)
 		return NULL;
@@ -132,25 +148,38 @@ void answer_request(Database* db, Request* request){
 	
 	Endpoint* endpoint;
 	Video* video;
-	Cache* cache;
-	int size, j;
+	Cache** cache;
+	Cache* temp;
+	int size, j, i;
 
-	endpoint = db->entpoints[request->entpoint_id];
-	video = db->videos[request->video_id];
+	endpoint = &db->endpoints[request->endpoint_id];
+	video = &db->videos[request->video_id];
 	size = video->size;
 
+	cache = (Cache **) malloc(db->C*sizeof(Cache *));
+
 	for(j=0; j<endpoint->num_cache; j++){
-<<<<<<< HEAD
-		cache = seek_cache(db, endpoint->cache[j].id);
-		if(size<=(cache->free_mem)){
-=======
-		cache = db->caches[endpoint->cache[j].id];
-		if(size<=(db->X - cache->free_mem)){
->>>>>>> 7452045383dc056afd26ee70795d0ec0b12529c5
+		cache[j] = seek_cache(db, endpoint->cache[j].id);
+		i=j;
+		while(endpoint->cache[i].latency < endpoint->cache[i].latency && i > 0){
+		temp = cache[i-1];
+		cache[i-1]=cache[i];
+		cache[i]=temp;
+		i--;
+		}
+	}
+	for(j=0; j<endpoint->num_cache; j++){
+		if(seek_video_cache(cache[j], video->id)==1){
+			free(cache);
+			return;
+		}
+	
+		if(size<=(cache[j]->free_mem)){
 			cache_add_video(db, endpoint->cache[j].id, video->id);
 			break;
 		}
 	}
+	free(cache);
 }
 
 
