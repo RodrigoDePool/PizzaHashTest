@@ -6,6 +6,7 @@
 #include <string.h>
 
 #define MAX_VIDS 10000
+#define MAX_CACHE 1000
 #define MAX_REQUESTS 1000000
 
 typedef struct {
@@ -19,10 +20,10 @@ typedef struct {
     /*servers where it is put?*/
 }Video;
 
+
 typedef struct {
     int id;
     int lat_base;
-    int lat[MAX_VIDS];
     Conexion cache[1000];
     int num_cache;
 }Endpoint;
@@ -41,6 +42,7 @@ typedef struct {
     int number;
 }Request;
 
+<< << <<< HEAD
 typedef struct {
     int V;
     int E;
@@ -53,5 +55,11 @@ typedef struct {
     Video videos[10000];
 } Database;
 
+Video* new_video(int id, int size);
 
+Endpoint* new_endopint(int id, int lat_base, int* lat, int* cache);
+
+Request* new_request(int server_id, int endpoint_id, int number);
+
+int server_add_video(int server_id, Video* video);
 #endif
